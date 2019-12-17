@@ -21,16 +21,24 @@ NSString *const kGPUImageChromaKeyBlendFragmentShaderString = SHADER_STRING
      vec4 textureColor = texture2D(inputImageTexture, textureCoordinate);
      vec4 textureColor2 = texture2D(inputImageTexture2, textureCoordinate2);
      
-     float maskY = 0.2989 * colorToReplace.r + 0.5866 * colorToReplace.g + 0.1145 * colorToReplace.b;
+     //     float maskY = 0.2989 * colorToReplace.r + 0.5866 * colorToReplace.g + 0.1145 * colorToReplace.b;
+     //     float maskCr = 0.7132 * (colorToReplace.r - maskY);
+     //     float maskCb = 0.5647 * (colorToReplace.b - maskY);
+     //
+     //     float Y = 0.2989 * textureColor.r + 0.5866 * textureColor.g + 0.1145 * textureColor.b;
+     //     float Cr = 0.7132 * (textureColor.r - Y);
+     //     float Cb = 0.5647 * (textureColor.b - Y);
+     //
+     float maskY = 0.0 * colorToReplace.r + 0.0 * colorToReplace.g + 0.0 * colorToReplace.b;
      float maskCr = 0.7132 * (colorToReplace.r - maskY);
      float maskCb = 0.5647 * (colorToReplace.b - maskY);
      
-     float Y = 0.2989 * textureColor.r + 0.5866 * textureColor.g + 0.1145 * textureColor.b;
-     float Cr = 0.7132 * (textureColor.r - Y);
-     float Cb = 0.5647 * (textureColor.b - Y);
+     float Y = 0.0 * textureColor.r + 0.0 * textureColor.g + 0.0 * textureColor.b;
+     float Cr = 0.2132 * (textureColor.r - Y);
+     float Cb = 0.2647 * (textureColor.b - Y);
      
-//     float blendValue = 1.0 - smoothstep(thresholdSensitivity - smoothing, thresholdSensitivity , abs(Cr - maskCr) + abs(Cb - maskCb));
-     float blendValue = 1.0 - smoothstep(thresholdSensitivity, thresholdSensitivity + smoothing, distance(vec2(Cr, Cb), vec2(maskCr, maskCb)));
+     float blendValue = 1.0 - smoothstep(thresholdSensitivity - smoothing, thresholdSensitivity , abs(Cr - maskCr) + abs(Cb - maskCb));
+     //float blendValue = 1.0 - smoothstep(thresholdSensitivity, thresholdSensitivity + smoothing, distance(vec2(Cr, Cb), vec2(maskCr, maskCb)));
      gl_FragColor = mix(textureColor, textureColor2, blendValue);
  }
 );
