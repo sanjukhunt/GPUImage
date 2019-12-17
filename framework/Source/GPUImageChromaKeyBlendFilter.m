@@ -20,7 +20,7 @@ NSString *const kGPUImageChromaKeyBlendFragmentShaderString = SHADER_STRING
  {
      vec4 textureColor = texture2D(inputImageTexture, textureCoordinate);
      vec4 textureColor2 = texture2D(inputImageTexture2, textureCoordinate2);
-     
+     //change by sanju.khunt
      //     float maskY = 0.2989 * colorToReplace.r + 0.5866 * colorToReplace.g + 0.1145 * colorToReplace.b;
      //     float maskCr = 0.7132 * (colorToReplace.r - maskY);
      //     float maskCb = 0.5647 * (colorToReplace.b - maskY);
